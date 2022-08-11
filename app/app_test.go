@@ -3,13 +3,13 @@ package app
 import (
 	"testing"
 
-	"github.com/kimulaco/daily-steam/date"
+	"github.com/kimulaco/daily-steam-core/date"
 )
 
 func TestApp(t *testing.T) {
 	a := App{
 		Id:       "test_app_id",
-		Url:      "https://github.com/kimulaco/daily-steam",
+		Url:      "https://github.com/kimulaco/daily-steam-core",
 		Title:    "TestApp",
 		ThumbUrl: "",
 		ReleasedAt: date.Date{

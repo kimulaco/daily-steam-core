@@ -1,7 +1,7 @@
 package app
 
 import (
-	"github.com/kimulaco/daily-steam/date"
+	"github.com/kimulaco/daily-steam-core/date"
 )
 
 type App struct {
