@@ -1,20 +1,6 @@
 package app
 
-import (
-	"github.com/kimulaco/daily-steam-core/date"
-)
-
 type App struct {
-	Id         string
-	Url        string
-	Title      string
-	ThumbUrl   string
-	ReleasedAt date.Date
-	Price      string
-	SalePrice  string
-}
-
-type AppJson struct {
 	Id         string `json:"id"`
 	Url        string `json:"url"`
 	Title      string `json:"title"`
@@ -24,14 +10,11 @@ type AppJson struct {
 	SalePrice  string `json:"sale_price"`
 }
 
-func (a App) ToJson() AppJson {
-	return AppJson{
-		Id:         a.Id,
-		Url:        a.Url,
-		Title:      a.Title,
-		ThumbUrl:   a.ThumbUrl,
-		ReleasedAt: a.ReleasedAt.ToString(),
-		Price:      a.Price,
-		SalePrice:  a.SalePrice,
-	}
+func (a App) IsValid() bool {
+	return (a.Id != "" &&
+		a.Url != "" &&
+		a.Title != "" &&
+		a.ThumbUrl != "" &&
+		a.ReleasedAt != "" &&
+		a.Price != "")
 }

@@ -2,29 +2,51 @@ package app
 
 import (
 	"testing"
-
-	"github.com/kimulaco/daily-steam-core/date"
 )
 
-func TestApp(t *testing.T) {
-	a := App{
-		Id:       "test_app_id",
-		Url:      "https://github.com/kimulaco/daily-steam-core",
-		Title:    "TestApp",
-		ThumbUrl: "",
-		ReleasedAt: date.Date{
-			Year:  2022,
-			Month: 1,
-			Day:   1,
-		},
-		Price:     "1000",
-		SalePrice: "500",
-	}
+func TestAppIsValid(t *testing.T) {
+	t.Run("has all the content", func(t *testing.T) {
+		a := App{
+			Id:         "test_app_id",
+			Url:        "https://github.com/kimulaco/daily-steam-core",
+			Title:      "TestApp",
+			ThumbUrl:   "https://github.com/kimulaco/daily-steam-core/thumb.png",
+			ReleasedAt: "2022/1/1",
+			Price:      "1000",
+			SalePrice:  "500",
+		}
+		if !a.IsValid() {
+			t.Error("this case is that returns true")
+		}
+	})
 
-	t.Run("ToJson", func(t *testing.T) {
-		j := a.ToJson()
-		if j.ReleasedAt != "2022/1/1" {
-			t.Error(j.ReleasedAt)
+	t.Run("no SalePrice", func(t *testing.T) {
+		a := App{
+			Id:         "test_app_id",
+			Url:        "https://github.com/kimulaco/daily-steam-core",
+			Title:      "TestApp",
+			ThumbUrl:   "https://github.com/kimulaco/daily-steam-core/thumb.png",
+			ReleasedAt: "2022/1/1",
+			Price:      "1000",
+			SalePrice:  "",
+		}
+		if !a.IsValid() {
+			t.Error("this case is that returns true")
+		}
+	})
+
+	t.Run("no ThumbUrl", func(t *testing.T) {
+		a := App{
+			Id:         "test_app_id",
+			Url:        "https://github.com/kimulaco/daily-steam-core",
+			Title:      "TestApp",
+			ThumbUrl:   "",
+			ReleasedAt: "2022/1/1",
+			Price:      "1000",
+			SalePrice:  "500",
+		}
+		if a.IsValid() {
+			t.Error("this case is that returns false")
 		}
 	})
 }
