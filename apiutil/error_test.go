@@ -26,6 +26,16 @@ func TestError(t *testing.T) {
 			t.Error(err.Error())
 		}
 	})
+
+	t.Run("Error.IsEmpty()", func(t *testing.T) {
+		if e.IsEmpty() {
+			t.Error("e is not empty")
+		}
+		empty := Error{}
+		if !empty.IsEmpty() {
+			t.Error("empty is not empty")
+		}
+	})
 }
 
 func TestNewError(t *testing.T) {
