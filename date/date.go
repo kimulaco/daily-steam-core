@@ -16,7 +16,7 @@ func (d Date) IsEmpty() bool {
 }
 
 func (d Date) ToString() string {
-	return strconv.Itoa(d.Year) + "/" + strconv.Itoa(d.Month) + "/" + strconv.Itoa(d.Day)
+	return strconv.Itoa(d.Year) + "-" + strconv.Itoa(d.Month) + "-" + strconv.Itoa(d.Day)
 }
 
 func (d Date) Equal(target Date) bool {
@@ -34,6 +34,14 @@ func NewDate(y int, m int, d int) Date {
 func YesterdayDate() Date {
 	t := time.Now().AddDate(0, 0, -1)
 	return NewDate(t.Year(), int(t.Month()), t.Day())
+}
+
+func Parse(v string) (Date, error) {
+	t, err := time.Parse("2006-1-2", v)
+	if err != nil {
+		return Date{}, err
+	}
+	return NewDate(t.Year(), int(t.Month()), t.Day()), nil
 }
 
 func ParseDate(v string) (Date, error) {
