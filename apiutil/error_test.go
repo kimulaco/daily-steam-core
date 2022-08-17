@@ -39,12 +39,39 @@ func TestError(t *testing.T) {
 }
 
 func TestNewError(t *testing.T) {
-	t.Run("create Error", func(t *testing.T) {
-		e := NewError(400, "REQUIRED_ID", errors.New("required id paramater"))
-		if e.StatusCode != 400 ||
-			e.ErrorCode != "REQUIRED_ID" ||
-			e.Message != "required id paramater" {
+	e := NewError(400, "REQUIRED_ID", errors.New("required id paramater"))
+	if e.StatusCode != 400 ||
+		e.ErrorCode != "REQUIRED_ID" ||
+		e.Message != "required id paramater" {
+		t.Error("invalid Error struct")
+	}
+}
+
+func TestNew400(t *testing.T) {
+	e := NewError400("REQUIRED_ID", "required id paramater")
+	if e.StatusCode != 400 ||
+		e.ErrorCode != "REQUIRED_ID" ||
+		e.Message != "required id paramater" {
+		t.Error("invalid Error struct")
+	}
+}
+
+func TestNew500(t *testing.T) {
+	t.Run("struct value", func(t *testing.T) {
+		e := NewError500("INTERNAL_ERROR", "error text")
+		if e.StatusCode != 500 ||
+			e.ErrorCode != "INTERNAL_ERROR" ||
+			e.Message != "error text" {
 			t.Error("invalid Error struct")
+		}
+	})
+
+	t.Run("default msg", func(t *testing.T) {
+		e := NewError500("INTERNAL_ERROR", "")
+		if e.StatusCode != 500 ||
+			e.ErrorCode != "INTERNAL_ERROR" ||
+			e.Message != MSG_500 {
+			t.Error("default msg is '" + MSG_500 + "'")
 		}
 	})
 }
