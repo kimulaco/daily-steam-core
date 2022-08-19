@@ -32,7 +32,8 @@ func NewDate(y int, m int, d int) Date {
 }
 
 func YesterdayDate() Date {
-	t := time.Now().AddDate(0, 0, -1)
+	jst, _ := time.LoadLocation("Asia/Tokyo")
+	t := time.Now().In(jst).AddDate(0, 0, -1)
 	return NewDate(t.Year(), int(t.Month()), t.Day())
 }
 
